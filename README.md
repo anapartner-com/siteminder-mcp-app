@@ -253,10 +253,6 @@ Enable debug mode in the UI by:
 5. Add real-time notifications
 6. Implement role-based access control
 
-## License
-
-MIT
-
 ## Support
 
 For issues or questions, check:
