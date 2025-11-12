@@ -160,7 +160,7 @@ async function callCustomLLM({ message, conversationHistory, tools }) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      model: 'gpt-4',
+      model: 'mistral:latest',
       messages: messages,
       tools: openaiTools.length > 0 ? openaiTools : undefined,
       tool_choice: 'auto'
@@ -168,6 +168,12 @@ async function callCustomLLM({ message, conversationHistory, tools }) {
   });
 
   const data = await response.json();
+
+  if (!data.choices || !data.choices[0]) {
+    console.error('Invalid response from custom LLM:', data);
+    throw new Error(`Custom LLM error: ${data.detail || JSON.stringify(data)}`);
+  }
+
   const result = data.choices[0];
   const toolCalls = result.message.tool_calls || [];
 
@@ -299,7 +305,7 @@ async function continueCustomLLMWithToolResult({ toolResult, previousState, tool
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      model: 'gpt-4',
+      model: 'mistral:latest',
       messages: messages,
       tools: openaiTools.length > 0 ? openaiTools : undefined,
       tool_choice: 'auto'
@@ -307,6 +313,12 @@ async function continueCustomLLMWithToolResult({ toolResult, previousState, tool
   });
 
   const data = await response.json();
+
+  if (!data.choices || !data.choices[0]) {
+    console.error('Invalid response from custom LLM:', data);
+    throw new Error(`Custom LLM error: ${data.detail || JSON.stringify(data)}`);
+  }
+
   const result = data.choices[0];
   const toolCalls = result.message.tool_calls || [];
 
