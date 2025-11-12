@@ -5,9 +5,8 @@ Complete end-to-end application demonstrating MCP (Model Context Protocol) integ
 ## 🌐 Quick Access
 
 **Application is running at:**
-- **Public Internet**: http://34.122.218.6:8080
-- **Private Network**: http://10.128.0.56:8080
 - **Local Server**: http://localhost:8080
+- **Network**: http://YOUR_SERVER_IP:8080
 
 📖 See [QUICKSTART.md](QUICKSTART.md) for detailed access instructions.
 
@@ -73,7 +72,7 @@ This will:
 - Start Frontend server (port 8080)
 - Run everything in background with logs
 
-3. **Open browser**: http://localhost:8080 or http://10.128.0.56:8080
+3. **Open browser**: http://localhost:8080
 
 ### Management Scripts
 
@@ -164,7 +163,7 @@ ANTHROPIC_API_KEY=your-api-key-here
 The application is configured to listen on all interfaces (0.0.0.0):
 
 - **Local**: http://localhost:8080
-- **Network**: http://10.128.0.56:8080 (replace with your server IP)
+- **Network**: http://YOUR_SERVER_IP:8080
 
 ## API Reference
 
@@ -241,10 +240,9 @@ Enable debug mode in the UI by:
 
 ## System Information
 
-- **SiteMinder URL**: https://casso.cx.anapartner.net
-- **Server IP**: 10.128.0.56
 - **Backend Port**: 3000
 - **Frontend Port**: 8080
+- **SiteMinder URL**: Configured in .env file
 
 ## Next Steps
 
