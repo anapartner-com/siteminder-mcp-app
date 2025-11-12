@@ -1,0 +1,16 @@
+{
+  "name": "siteminder-mcp-server",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "MCP Server for SiteMinder Policy Server",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "axios": "^1.7.9",
+    "axios-cookiejar-support": "^5.0.3",
+    "tough-cookie": "^5.0.0"
+  }
+}

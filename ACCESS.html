@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SiteMinder MCP - Access Information</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #11998e;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .access-card {
+            background: #f8f9fa;
+            border-left: 4px solid #11998e;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .access-card h2 {
+            color: #11998e;
+            margin-top: 0;
+            font-size: 18px;
+        }
+        .url-box {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 16px;
+            margin: 10px 0;
+            border: 2px solid #11998e;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .url-box a {
+            color: #11998e;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .url-box a:hover {
+            text-decoration: underline;
+        }
+        .btn {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .info-item {
+            background: #e8f5f3;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .info-item strong {
+            display: block;
+            color: #11998e;
+            margin-bottom: 5px;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .status-checking {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .status-online {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status-offline {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .copy-btn {
+            background: #11998e;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .copy-btn:hover {
+            background: #0d7a6f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 SiteMinder AI Assistant</h1>
+        <p class="subtitle">Access your SiteMinder MCP Application</p>
+
+        <div class="access-card">
+            <h2>🌐 Primary Access (Recommended)</h2>
+            <div class="url-box">
+                <a href="http://34.122.218.6:8080" target="_blank">http://34.122.218.6:8080</a>
+                <button class="copy-btn" onclick="copyToClipboard('http://34.122.218.6:8080')">Copy</button>
+            </div>
+            <p>✅ Access from anywhere on the internet using the public IP</p>
+        </div>
+
+        <div class="access-card">
+            <h2>🏠 Local Network Access</h2>
+            <div class="url-box">
+                <a href="http://10.128.0.56:8080" target="_blank">http://10.128.0.56:8080</a>
+                <button class="copy-btn" onclick="copyToClipboard('http://10.128.0.56:8080')">Copy</button>
+            </div>
+            <p>Use this URL if you're on the same private network</p>
+        </div>
+
+        <div class="access-card">
+            <h2>💻 Server Local Access</h2>
+            <div class="url-box">
+                <a href="http://localhost:8080" target="_blank">http://localhost:8080</a>
+                <button class="copy-btn" onclick="copyToClipboard('http://localhost:8080')">Copy</button>
+            </div>
+            <p>Use this URL if you're on the server itself</p>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-item">
+                <strong>Public IP</strong>
+                34.122.218.6
+            </div>
+            <div class="info-item">
+                <strong>Private IP</strong>
+                10.128.0.56
+            </div>
+            <div class="info-item">
+                <strong>Frontend Port</strong>
+                8080
+            </div>
+            <div class="info-item">
+                <strong>Backend Port</strong>
+                3000
+            </div>
+        </div>
+
+        <div class="access-card">
+            <h2>📊 Service Status</h2>
+            <p>Frontend: <span id="frontendStatus" class="status-badge status-checking">Checking...</span></p>
+            <p>Backend: <span id="backendStatus" class="status-badge status-checking">Checking...</span></p>
+        </div>
+
+        <div class="access-card">
+            <h2>🎯 Quick Commands to Try</h2>
+            <ul>
+                <li>List all user directories</li>
+                <li>Show me all domains</li>
+                <li>List all agents</li>
+                <li>Check system health</li>
+                <li>Show active sessions</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="http://34.122.218.6:8080" target="_blank">
+                <button class="btn">🚀 Open Application</button>
+            </a>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px; color: #666; font-size: 14px;">
+            <p>📖 For detailed documentation, check <strong>QUICKSTART.md</strong> and <strong>README.md</strong></p>
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('URL copied to clipboard!');
+            });
+        }
+
+        async function checkStatus() {
+            // Check frontend
+            try {
+                await fetch('http://34.122.218.6:8080', { mode: 'no-cors' });
+                document.getElementById('frontendStatus').textContent = 'Online';
+                document.getElementById('frontendStatus').className = 'status-badge status-online';
+            } catch (e) {
+                document.getElementById('frontendStatus').textContent = 'Offline';
+                document.getElementById('frontendStatus').className = 'status-badge status-offline';
+            }
+
+            // Check backend
+            try {
+                const response = await fetch('http://34.122.218.6:3000/api/health');
+                if (response.ok) {
+                    document.getElementById('backendStatus').textContent = 'Online';
+                    document.getElementById('backendStatus').className = 'status-badge status-online';
+                } else {
+                    document.getElementById('backendStatus').textContent = 'Offline';
+                    document.getElementById('backendStatus').className = 'status-badge status-offline';
+                }
+            } catch (e) {
+                document.getElementById('backendStatus').textContent = 'Offline';
+                document.getElementById('backendStatus').className = 'status-badge status-offline';
+            }
+        }
+
+        // Check status on load
+        checkStatus();
+        // Recheck every 10 seconds
+        setInterval(checkStatus, 10000);
+    </script>
+</body>
+</html>

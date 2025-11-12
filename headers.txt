@@ -1,0 +1,8 @@
+HTTP/2 302 
+date: Tue, 11 Nov 2025 15:00:09 GMT
+content-length: 0
+location: https://casso.cx.anapartner.net/iam/siteminder/console/index.jsp
+set-cookie: JSESSIONID=1762873210.531.2052.30254|7772a1f211c93335a0c64e2806c7a0c8; Path=/iam/; Secure; HttpOnly
+set-cookie: JSESSIONID=FS3OXs7JSZSLDXwbcdngi64T4iM0OFii9tQW0_Nu.sm-siteminder-admin-0; path=/iam/siteminder; HttpOnly
+strict-transport-security: max-age=31536000; includeSubDomains
+

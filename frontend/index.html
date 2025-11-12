@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SiteMinder AI Assistant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 900px;
+            height: 700px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .chat-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f7f9fc;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            display: flex;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 15px 20px;
+            border-radius: 15px;
+            line-height: 1.5;
+        }
+
+        .message.user .message-content {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+
+        .message.assistant .message-content {
+            background: white;
+            color: #333;
+            border: 1px solid #e0e0e0;
+            border-bottom-left-radius: 5px;
+        }
+
+        .input-container {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            gap: 10px;
+        }
+
+        #messageInput {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        #messageInput:focus {
+            border-color: #11998e;
+        }
+
+        #sendButton {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        #sendButton:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(17, 153, 142, 0.4);
+        }
+
+        #sendButton:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .status {
+            text-align: center;
+            padding: 10px;
+            background: #fff3cd;
+            color: #856404;
+            font-size: 13px;
+        }
+
+        .status.connected {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .suggestions {
+            display: flex;
+            gap: 10px;
+            padding: 15px;
+            overflow-x: auto;
+            background: white;
+        }
+
+        .suggestion-chip {
+            padding: 8px 16px;
+            background: #f0f0f0;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            white-space: nowrap;
+            transition: background 0.2s;
+        }
+
+        .suggestion-chip:hover {
+            background: #e0e0e0;
+        }
+
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        code {
+            font-family: 'Courier New', monospace;
+        }
+
+        .debug-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            background: #f0f0f0;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background 0.2s;
+            user-select: none;
+        }
+
+        .debug-toggle:hover {
+            background: #e0e0e0;
+        }
+
+        .debug-toggle.active {
+            background: #11998e;
+            color: white;
+        }
+
+        .debug-panel {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 8px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+        }
+
+        .debug-section {
+            margin-bottom: 15px;
+            border-left: 3px solid #11998e;
+            padding-left: 10px;
+        }
+
+        .debug-title {
+            color: #4ec9b0;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .debug-timestamp {
+            color: #858585;
+            font-size: 10px;
+        }
+
+        .debug-json {
+            background: #2d2d2d;
+            padding: 8px;
+            border-radius: 4px;
+            margin-top: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔐 SiteMinder AI Assistant</h1>
+            <p>Ask me anything about your SiteMinder Policy Server</p>
+        </div>
+
+        <div id="status" class="status">Connecting to backend...</div>
+
+        <div class="suggestions" id="suggestions">
+            <div class="suggestion-chip" onclick="sendSuggestion('List all user directories')">📁 User Directories</div>
+            <div class="suggestion-chip" onclick="sendSuggestion('List all domains')">🌐 Domains</div>
+            <div class="suggestion-chip" onclick="sendSuggestion('Show all agents')">🤖 Agents</div>
+            <div class="suggestion-chip" onclick="sendSuggestion('List all realms')">🛡️ Realms</div>
+            <div class="suggestion-chip" onclick="sendSuggestion('Check system health')">✅ System Health</div>
+            <div class="suggestion-chip" onclick="sendSuggestion('Show active sessions')">👥 Sessions</div>
+        </div>
+
+        <div class="chat-container" id="chatContainer">
+            <div class="message assistant">
+                <div class="message-content">
+                    👋 Hello! I'm your SiteMinder AI assistant. I can help you:
+                    <ul style="margin-top: 10px; padding-left: 20px;">
+                        <li>List and manage user directories</li>
+                        <li>View domains, agents, and realms</li>
+                        <li>Monitor system health</li>
+                        <li>Manage active sessions</li>
+                        <li>View audit logs</li>
+                        <li>Answer questions about your SiteMinder setup</li>
+                    </ul>
+                    Try asking me something!
+                </div>
+            </div>
+        </div>
+
+        <div class="input-container">
+            <div class="debug-toggle" id="debugToggle" onclick="toggleDebug()">
+                🐛 Debug
+            </div>
+            <input
+                type="text"
+                id="messageInput"
+                placeholder="Ask about SiteMinder..."
+                onkeypress="handleKeyPress(event)"
+            />
+            <button id="sendButton" onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // Auto-detect backend URL (use current host or fallback to localhost)
+        const BACKEND_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost:3000'
+            : `http://${window.location.hostname}:3000`;
+
+        console.log('Backend URL:', BACKEND_URL);
+
+        let conversationHistory = [];
+        let isConnected = false;
+        let debugMode = false;
+
+        // Check backend health
+        async function checkHealth() {
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/health`);
+                const data = await response.json();
+
+                const statusEl = document.getElementById('status');
+                if (data.status === 'ok' && data.mcpConnected) {
+                    statusEl.textContent = `✅ Connected | Tools: ${data.availableTools.join(', ')}`;
+                    statusEl.className = 'status connected';
+                    isConnected = true;
+                } else {
+                    statusEl.textContent = '⚠️ Backend connected but MCP not initialized';
+                    statusEl.className = 'status';
+                }
+            } catch (error) {
+                const statusEl = document.getElementById('status');
+                statusEl.textContent = '❌ Cannot connect to backend server';
+                statusEl.className = 'status error';
+                isConnected = false;
+            }
+        }
+
+        function toggleDebug() {
+            debugMode = !debugMode;
+            const debugToggle = document.getElementById('debugToggle');
+            if (debugMode) {
+                debugToggle.classList.add('active');
+            } else {
+                debugToggle.classList.remove('active');
+            }
+        }
+
+        function addMessage(role, content, debugData = null) {
+            const chatContainer = document.getElementById('chatContainer');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${role}`;
+
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+
+            // Format content (handle JSON, code blocks, etc.)
+            let formattedContent = content;
+            try {
+                // Try to parse and pretty print JSON
+                const jsonMatch = content.match(/```json\n([\s\S]*?)\n```/);
+                if (jsonMatch) {
+                    const json = JSON.parse(jsonMatch[1]);
+                    formattedContent = content.replace(
+                        jsonMatch[0],
+                        `<pre><code>${JSON.stringify(json, null, 2)}</code></pre>`
+                    );
+                }
+            } catch (e) {
+                // Not JSON, use as-is
+            }
+
+            contentDiv.innerHTML = formattedContent.replace(/\n/g, '<br>');
+
+            // Add debug panel if debug data exists
+            if (debugData && debugData.enabled && debugData.interactions) {
+                const debugPanel = document.createElement('div');
+                debugPanel.className = 'debug-panel';
+
+                let debugHTML = '<div style="color: #4ec9b0; margin-bottom: 10px;">🐛 Debug Information</div>';
+
+                debugData.interactions.forEach((interaction, idx) => {
+                    debugHTML += `<div class="debug-section">`;
+                    debugHTML += `<div class="debug-title">${idx + 1}. ${interaction.type.toUpperCase().replace(/_/g, ' ')}</div>`;
+                    debugHTML += `<div class="debug-timestamp">${interaction.timestamp}</div>`;
+                    if (interaction.tool) {
+                        debugHTML += `<div style="color: #dcdcaa; margin-top: 5px;">Tool: ${interaction.tool}</div>`;
+                    }
+                    debugHTML += `<div class="debug-json">${JSON.stringify(interaction.payload, null, 2)}</div>`;
+                    debugHTML += `</div>`;
+                });
+
+                debugPanel.innerHTML = debugHTML;
+                contentDiv.appendChild(debugPanel);
+            }
+
+            messageDiv.appendChild(contentDiv);
+            chatContainer.appendChild(messageDiv);
+
+            // Scroll to bottom
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const sendButton = document.getElementById('sendButton');
+            const message = input.value.trim();
+
+            if (!message || !isConnected) return;
+
+            // Disable input
+            input.disabled = true;
+            sendButton.disabled = true;
+            sendButton.innerHTML = '<span class="loading"></span>';
+
+            // Add user message
+            addMessage('user', message);
+            input.value = '';
+
+            try {
+                // Add "debug" to message if debug mode is enabled
+                const finalMessage = debugMode ? `${message} debug` : message;
+
+                const response = await fetch(`${BACKEND_URL}/api/chat`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: finalMessage,
+                        conversationHistory,
+                    }),
+                });
+
+                const data = await response.json();
+
+                if (data.error) {
+                    addMessage('assistant', `❌ Error: ${data.error}`);
+                } else {
+                    addMessage('assistant', data.response, data.debug);
+                    conversationHistory = data.conversationHistory;
+                }
+            } catch (error) {
+                addMessage('assistant', `❌ Failed to send message: ${error.message}`);
+            } finally {
+                // Re-enable input
+                input.disabled = false;
+                sendButton.disabled = false;
+                sendButton.textContent = 'Send';
+                input.focus();
+            }
+        }
+
+        function sendSuggestion(text) {
+            document.getElementById('messageInput').value = text;
+            sendMessage();
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        // Initialize
+        checkHealth();
+        setInterval(checkHealth, 10000); // Check every 10 seconds
+    </script>
+</body>
+</html>
