@@ -52,21 +52,21 @@ jwtToken = response.data.sessionkey || response.data.token || response.data.jwt;
 ## 🌐 Access Your Application
 
 ### Primary URL (Recommended)
-**http://34.122.218.6:8080**
+**http://YOUR_SERVER_IP:8080**
 
 ### Alternative URLs
-- Private Network: http://10.128.0.56:8080
+- Private Network: http://YOUR_SERVER_IP:8080
 - Local Server: http://localhost:8080
 
 ### API Endpoints
-- Backend Health: http://34.122.218.6:3000/api/health
-- Chat API: http://34.122.218.6:3000/api/chat
+- Backend Health: http://YOUR_SERVER_IP:3000/api/health
+- Chat API: http://YOUR_SERVER_IP:3000/api/chat
 
 ---
 
 ## 🎯 Test the Application
 
-Open **http://34.122.218.6:8080** and try these commands:
+Open **http://YOUR_SERVER_IP:8080** and try these commands:
 
 ### Basic Queries
 1. **"List all user directories"**
@@ -200,7 +200,7 @@ Your SiteMinder MCP Application is now:
 **Start chatting with your SiteMinder AI Assistant now!**
 
 ### Quick Access
-**http://34.122.218.6:8080**
+**http://YOUR_SERVER_IP:8080**
 
 ---
 

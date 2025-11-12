@@ -105,7 +105,7 @@ curl -k -b cookies.txt \
 
 Ready to test the full chat interface:
 
-1. Open: **http://34.122.218.6:8080**
+1. Open: **http://YOUR_SERVER_IP:8080**
 2. Try: "List all user directories"
 3. Watch authentication happen
 4. See scraped data returned

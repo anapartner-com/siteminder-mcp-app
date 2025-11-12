@@ -3,8 +3,8 @@
 ## 🚀 Access the Application
 
 ### Your Server Details
-- **Public IP**: `34.122.218.6`
-- **Private IP**: `10.128.0.56`
+- **Public IP**: `YOUR_SERVER_IP`
+- **Private IP**: `YOUR_SERVER_IP`
 - **Frontend Port**: `8080`
 - **Backend Port**: `3000`
 
@@ -17,19 +17,19 @@ http://localhost:8080
 
 #### Option 2: From Your Network (Private IP)
 ```
-http://10.128.0.56:8080
+http://YOUR_SERVER_IP:8080
 ```
 
 #### Option 3: From Internet (Public IP) ⭐ RECOMMENDED
 ```
-http://34.122.218.6:8080
+http://YOUR_SERVER_IP:8080
 ```
 
 ### 📱 Quick Access
 
 Open your browser and navigate to:
 ```
-http://34.122.218.6:8080
+http://YOUR_SERVER_IP:8080
 ```
 
 ---
@@ -71,7 +71,7 @@ tail -f logs/frontend.log
 curl http://localhost:8080
 
 # From another machine
-curl http://34.122.218.6:8080
+curl http://YOUR_SERVER_IP:8080
 ```
 
 ### Open Ports on GCP (if needed)
@@ -100,7 +100,7 @@ Or via GCP Console:
 ## 🎯 Using the Application
 
 ### 1. Open the Web UI
-Navigate to: **http://34.122.218.6:8080**
+Navigate to: **http://YOUR_SERVER_IP:8080**
 
 ### 2. Try These Commands
 - `List all user directories`
@@ -179,7 +179,7 @@ Then restart:
 ## 📊 System Architecture
 
 ```
-Internet/Browser (http://34.122.218.6:8080)
+Internet/Browser (http://YOUR_SERVER_IP:8080)
         ↓
     Frontend Server (Port 8080)
         ↓
@@ -198,9 +198,9 @@ Internet/Browser (http://34.122.218.6:8080)
 
 | Service | Local | Private Network | Public Internet |
 |---------|-------|-----------------|-----------------|
-| **Frontend** | http://localhost:8080 | http://10.128.0.56:8080 | **http://34.122.218.6:8080** |
-| **Backend** | http://localhost:3000 | http://10.128.0.56:3000 | http://34.122.218.6:3000 |
-| **Backend Health** | http://localhost:3000/api/health | http://10.128.0.56:3000/api/health | http://34.122.218.6:3000/api/health |
+| **Frontend** | http://localhost:8080 | http://YOUR_SERVER_IP:8080 | **http://YOUR_SERVER_IP:8080** |
+| **Backend** | http://localhost:3000 | http://YOUR_SERVER_IP:3000 | http://YOUR_SERVER_IP:3000 |
+| **Backend Health** | http://localhost:3000/api/health | http://YOUR_SERVER_IP:3000/api/health | http://YOUR_SERVER_IP:3000/api/health |
 
 ---
 
@@ -233,7 +233,7 @@ Try asking Claude these questions:
 
 The UI is responsive and works on mobile devices!
 
-Access from your phone: **http://34.122.218.6:8080**
+Access from your phone: **http://YOUR_SERVER_IP:8080**
 
 ---
 
@@ -261,8 +261,8 @@ Access from your phone: **http://34.122.218.6:8080**
 
 - [ ] Services running: `./status.sh`
 - [ ] Ports open: Check firewall rules
-- [ ] Can access: http://34.122.218.6:8080
-- [ ] Backend healthy: http://34.122.218.6:3000/api/health
+- [ ] Can access: http://YOUR_SERVER_IP:8080
+- [ ] Backend healthy: http://YOUR_SERVER_IP:3000/api/health
 - [ ] Chat works: Try sending a message
 
 ---

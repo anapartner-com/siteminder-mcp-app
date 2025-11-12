@@ -15,11 +15,11 @@ Updated to the correct Claude 3.5 Sonnet model:
 ## Status
 ✅ Application restarted successfully with correct model
 ✅ All services running on:
-- Frontend: http://34.122.218.6:8080
-- Backend: http://34.122.218.6:3000
+- Frontend: http://YOUR_SERVER_IP:8080
+- Backend: http://YOUR_SERVER_IP:3000
 
 ## Test It Now
-Open your browser: **http://34.122.218.6:8080**
+Open your browser: **http://YOUR_SERVER_IP:8080**
 
 Try asking:
 - "List all user directories"

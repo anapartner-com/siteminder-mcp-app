@@ -29,7 +29,7 @@ The MCP server now uses **web scraping** to extract data from the SiteMinder Adm
 
 ## Access Your Application
 
-**URL**: http://34.122.218.6:8080
+**URL**: http://YOUR_SERVER_IP:8080
 
 ## Try These Queries
 
@@ -112,7 +112,7 @@ The MCP server now uses **web scraping** to extract data from the SiteMinder Adm
 
 ## Quick Test
 
-1. Open: http://34.122.218.6:8080
+1. Open: http://YOUR_SERVER_IP:8080
 2. Ask: "List all domains"
 3. Watch the logs: `tail -f logs/backend.log`
 4. See: Web scraping in action!

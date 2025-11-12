@@ -21,7 +21,7 @@ Updated to use **Claude 3 Opus** which is available with your API key:
 
 ## Access Your Application
 
-**Open in browser:** http://34.122.218.6:8080
+**Open in browser:** http://YOUR_SERVER_IP:8080
 
 ## Test It Now
 

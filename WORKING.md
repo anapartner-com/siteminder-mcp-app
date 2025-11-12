@@ -27,15 +27,15 @@
 
 ### 🌐 Access Your Application
 
-**Primary URL**: http://34.122.218.6:8080
+**Primary URL**: http://YOUR_SERVER_IP:8080
 
 **Alternative URLs:**
-- Private Network: http://10.128.0.56:8080
+- Private Network: http://YOUR_SERVER_IP:8080
 - Local: http://localhost:8080
 
 ### 🎯 Test It Now!
 
-Open http://34.122.218.6:8080 and try:
+Open http://YOUR_SERVER_IP:8080 and try:
 
 1. **"List all user directories"**
    - Should query SiteMinder and return user directories
@@ -95,4 +95,4 @@ Your SiteMinder MCP application is now fully operational:
 
 **Go ahead and start chatting with your SiteMinder AI Assistant!**
 
-Access: http://34.122.218.6:8080
+Access: http://YOUR_SERVER_IP:8080
