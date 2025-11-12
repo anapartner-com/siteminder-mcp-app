@@ -309,7 +309,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
       case 'list_user_directories':
         console.error('Fetching user directories via REST API...');
-        const userDirsData = await apiCall('GET', '/ca/api/sso/services/policy/v1/SmUserDirs');
+        const userDirsData = await apiCall('GET', '/ca/api/sso/services/policy/v1/SmUserDirectories');
         result = {
           message: `Found ${userDirsData.data?.length || 0} user directories`,
           count: userDirsData.data?.length || 0,
