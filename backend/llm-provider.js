@@ -160,7 +160,7 @@ async function callCustomLLM({ message, conversationHistory, tools }) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      model: 'mistral:latest',
+      model: 'llama3.2:latest',
       messages: messages,
       tools: openaiTools.length > 0 ? openaiTools : undefined,
       tool_choice: 'auto'
@@ -305,7 +305,7 @@ async function continueCustomLLMWithToolResult({ toolResult, previousState, tool
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      model: 'mistral:latest',
+      model: 'llama3.2:latest',
       messages: messages,
       tools: openaiTools.length > 0 ? openaiTools : undefined,
       tool_choice: 'auto'
